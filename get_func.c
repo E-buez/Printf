@@ -1,25 +1,36 @@
 #include "main.h"
 
 /**
- * get_func - look for the specifier
- * @x: variable to the function
- * Return: function
+ * get_print_func - find print function relative to matching specifier
+ * @c: current specifier to compare
+ *
+ * Return: Number of characters printed
  */
-int (*get_func(char x))(va_list)
+int (*get_print_func(char c))(va_list)
 {
-	int i = 0;
-	spec arr[] = {
-		{"c", print_c},
-		{"s", print_s},
-		{"%", print_percent},
-		{"d", print_d},
-		{"i", print_i},
-		{NULL, NULL}
+	t_print_func specs[] = {
+		{'c', print_c},
+		{'s', print_s},
+		{'%', print_prcnt},
+		{'i', print_i},
+		{'d', print_i},
+		{'b', print_b},
+		{'u', print_u},
+		{'o', print_o},
+		{'x', print_x},
+		{'X', print_X},
+		{'S', print_S},
+		{'p', print_p},
+		{'r', print_rev},
+		{'R', print_rot13},
+		{ 0, NULL}
 	};
-	while (arr[i].valid)
+	unsigned int i = 0;
+
+	while (specs[i].specifier)
 	{
-		if (x == arr[i].valid[0])
-			return (arr[i].f);
+		if (specs[i].specifier == c)
+			return (specs[i].f);
 		i++;
 	}
 	return (NULL);
